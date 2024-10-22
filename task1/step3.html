@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Webpage</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        color: #333;
+        padding: 20px;
+        text-align: center;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #0073e6;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px 10px;
+      }
+
+      button:hover {
+        background-color: #ff4500;
+      }
+    </style>
+    <script>
+      function showAlert() {
+        alert("Button clicked!");
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Welcome to My Interactive Webpage</h1>
+
+    <p>This webpage includes an interactive button that triggers an alert.</p>
+
+    <button onclick="showAlert()">Click Me!</button>
+  </body>
+</html>
