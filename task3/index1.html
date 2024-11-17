@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Quiz</title>
+    <script defer src="quiz.js"></script>
+  </head>
+  <body>
+    <h1>Interactive Quiz</h1>
+    <div id="quiz">
+      <div id="question"></div>
+      <div id="options"></div>
+    </div>
+  </body>
+</html>
+<style>
+  /* General Body Styling */
+  body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  /* Header Styling */
+  h1 {
+    font-size: 2.5rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Quiz Container Styling */
+  #quiz {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+  }
+
+  #question {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #444444;
+  }
+
+  #options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Option Buttons */
+  #options button {
+    background: #6dd5ed;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  #options button:hover {
+    background: #2193b0;
+    transform: scale(1.05);
+  }
+
+  #options button:active {
+    background: #0b79a1;
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 2rem;
+    }
+
+    #question {
+      font-size: 1.2rem;
+    }
+
+    #options button {
+      font-size: 0.9rem;
+      padding: 12px;
+    }
+  }
+
+  /* Tablet Styles */
+  @media (min-width: 481px) and (max-width: 768px) {
+    h1 {
+      font-size: 2.2rem;
+    }
+
+    #question {
+      font-size: 1.4rem;
+    }
+
+    #options button {
+      font-size: 1rem;
+      padding: 15px;
+    }
+  }
+
+  /* Desktop Styles */
+  @media (min-width: 769px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    #question {
+      font-size: 1.5rem;
+    }
+
+    #options button {
+      font-size: 1.1rem;
+      padding: 18px;
+    }
+  }
+</style>

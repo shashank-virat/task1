@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Forecast</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background: #f0f0f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+      }
+
+      h1 {
+        color: #333;
+        font-size: 36px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+
+      #weather {
+        font-size: 1.2rem;
+        color: #333;
+        margin-top: 20px;
+        font-weight: bold;
+      }
+
+      .weather-info {
+        margin-top: 20px;
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.6;
+      }
+
+      .error {
+        color: red;
+        font-weight: bold;
+      }
+
+      .weather-container {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+
+      .weather-container strong {
+        color: #333;
+        font-size: 1.2rem;
+      }
+
+      .weather-container p {
+        margin: 10px 0;
+        font-size: 1.1rem;
+      }
+
+      .weather-container span {
+        color: #008cba;
+        font-weight: bold;
+      }
+
+      /* Add animation to the container */
+      .container {
+        animation: fadeIn 1s ease-out;
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Weather Forecast</h1>
+      <div id="weather">Loading...</div>
+
+      <div class="weather-container" id="weather-data">
+        <!-- Dynamic weather data will be injected here -->
+      </div>
+    </div>
+
+    <script>
+      // Get the user's current position
+      navigator.geolocation.getCurrentPosition((position) => {
+        let lat = position.coords.latitude;
+        let long = position.coords.longitude;
+        getWeather(lat, long);
+      });
+
+      // Function to fetch weather data
+      const getWeather = (lat, long) => {
+        const apiKey = "7fdbfe3d457c43c8959144952241711"; // Your WeatherAPI key
+        const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${long}&aqi=no`;
+
+        // Fetch weather data from WeatherAPI
+        fetch(url)
+          .then((response) => response.json())
+          .then((weather) => {
+            console.log(weather);
+
+            // Display weather data dynamically
+            const weatherElement = document.getElementById("weather");
+            const weatherDataElement = document.getElementById("weather-data");
+
+            weatherElement.innerHTML = `Current Weather in ${weather.location.name}`;
+
+            weatherDataElement.innerHTML = `
+              <div class="weather-info">
+                <strong>Temperature:</strong> ${Math.round(
+                  weather.current.temp_c
+                )} ℃ <br />
+                <strong>Condition:</strong> ${
+                  weather.current.condition.text
+                } <br />
+                <strong>Wind Speed:</strong> ${
+                  weather.current.wind_kph
+                } km/h <br />
+                <strong>Humidity:</strong> ${weather.current.humidity}% <br />
+                <strong>Feels Like:</strong> ${Math.round(
+                  weather.current.feelslike_c
+                )} ℃
+              </div>
+            `;
+          })
+          .catch((err) => {
+            // Handle errors
+            const weatherElement = document.getElementById("weather");
+            const weatherDataElement = document.getElementById("weather-data");
+
+            weatherElement.textContent = "Error fetching weather data.";
+            weatherElement.classList.add("error");
+            weatherDataElement.innerHTML = "";
+          });
+      };
+    </script>
+  </body>
+</html>
