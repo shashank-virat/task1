@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <h1>To-Do List</h1>
+      <input type="text" id="taskInput" placeholder="Add a new task..." />
+      <button id="addTaskButton">Add Task</button>
+      <ul id="taskList"></ul>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
+<script>
+  const taskInput = document.getElementById("taskInput");
+  const addTaskButton = document.getElementById("addTaskButton");
+  const taskList = document.getElementById("taskList");
+
+  // Load tasks from localStorage
+  const loadTasks = () => {
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    taskList.innerHTML = "";
+    tasks.forEach((task, index) => {
+      const li = document.createElement("li");
+      li.textContent = task;
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = () => deleteTask(index);
+      li.appendChild(deleteButton);
+      taskList.appendChild(li);
+    });
+  };
+
+  // Add task
+  const addTask = () => {
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    if (taskInput.value.trim() !== "") {
+      tasks.push(taskInput.value.trim());
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      taskInput.value = "";
+      loadTasks();
+    }
+  };
+
+  // Delete task
+  const deleteTask = (index) => {
+    const tasks = JSON.parse(localStorage.getItem("tasks"));
+    tasks.splice(index, 1);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    loadTasks();
+  };
+
+  addTaskButton.onclick = addTask;
+  loadTasks();
+</script>
+<style>
+  /* General Styles */
+  body {
+    font-family: "Arial", sans-serif;
+    background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* App Container */
+  .app {
+    background: #ffffff1a; /* Semi-transparent white background */
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  /* Title */
+  .app h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Input Field */
+  #taskInput {
+    width: 80%;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Add Task Button */
+  #addTaskButton {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+  }
+
+  #addTaskButton:hover {
+    background-color: #45a049;
+  }
+
+  /* Task List */
+  #taskList {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  /* Task Items */
+  #taskList li {
+    background: #ffffff80; /* Semi-transparent white */
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Delete Button */
+  #taskList li button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  #taskList li button:hover {
+    background-color: #e60000;
+  }
+
+  /* Scrollbar for Task List */
+  #taskList::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #taskList::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 10px;
+  }
+
+  #taskList::-webkit-scrollbar-thumb:hover {
+    background: #444;
+  }
+</style>
